@@ -1,0 +1,6 @@
+case,mean_npv,sd,p_npv_lt_0_pct
+no floor,6.63,13.30,28.6
+floor at 85% of base price,7.56,11.59,28.6
+floor at 90% of base price,8.53,10.37,28.4
+floor at 95% of base price,9.93,8.99,1.6
+floor at 100% of base price,11.90,7.47,0.0

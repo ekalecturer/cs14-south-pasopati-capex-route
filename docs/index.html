@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>The Feasibility Stress Test — South Pasopati Coal Project: Where the Capex Plan Really Breaks</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+  :root { --blue:#2b6cb0; --dark:#1a202c; --gray:#4a5568; --bg:#f7fafc; --green:#2f855a; --gold:#d69e2e; --purple:#805ad5; }
+  * { box-sizing: border-box; }
+  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; margin:0; color:var(--dark); background:#fff; line-height:1.6; }
+  header { background:var(--dark); color:#fff; padding:56px 20px; }
+  header .kicker { color:#90cdf4; font-weight:600; letter-spacing:.04em; text-transform:uppercase; font-size:13px; }
+  header h1 { font-size:32px; margin:10px 0 14px; max-width:760px; }
+  header p { max-width:680px; color:#cbd5e0; font-size:17px; }
+  .wrap { max-width:860px; margin:0 auto; padding:40px 20px; }
+  .stat-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(160px,1fr)); gap:16px; margin:28px 0; }
+  .stat { background:var(--bg); border-radius:10px; padding:18px; border:1px solid #e2e8f0; }
+  .stat .num { font-size:24px; font-weight:700; color:var(--blue); }
+  .stat .label { font-size:13px; color:var(--gray); margin-top:4px; }
+  h2 { font-size:21px; margin-top:40px; border-bottom:2px solid #e2e8f0; padding-bottom:8px; }
+  .btnrow { display:flex; gap:12px; flex-wrap:wrap; margin:24px 0; }
+  .btn { display:inline-block; background:var(--blue); color:#fff; text-decoration:none; padding:12px 20px; border-radius:8px; font-weight:600; border:none; cursor:pointer; font-size:15px; font-family:inherit; }
+  .btn.secondary { background:#fff; color:var(--blue); border:2px solid var(--blue); }
+  .callout { background:#fffbea; border-left:4px solid #d69e2e; padding:16px 20px; border-radius:6px; margin:20px 0; font-size:15px; }
+  .callout.good { background:#f0fff4; border-left-color:#38a169; }
+  .callout.bad { background:#fff5f5; border-left-color:#c53030; }
+  footer { text-align:center; color:var(--gray); font-size:13px; padding:40px 20px; }
+  a { color:var(--blue); }
+  table { border-collapse:collapse; width:100%; margin:16px 0; font-size:14px; }
+  th, td { text-align:left; padding:8px 10px; border-bottom:1px solid #e2e8f0; }
+  th { color:var(--gray); font-weight:600; }
+  .sim-panel { background:var(--bg); border:1px solid #e2e8f0; border-radius:12px; padding:24px; margin:24px 0; }
+  .sliders { display:grid; grid-template-columns:1fr 1fr; gap:18px 28px; }
+  @media (max-width:640px) { .sliders { grid-template-columns:1fr; } }
+  .slider-row label { display:flex; justify-content:space-between; font-size:14px; font-weight:600; margin-bottom:4px; }
+  .slider-row .val { color:var(--blue); font-weight:700; }
+  .slider-row input[type=range], .slider-row select { width:100%; accent-color:var(--blue); font-family:inherit; font-size:14px; }
+  .sim-results { margin-top:28px; }
+  .sim-results.hidden { display:none; }
+  canvas { width:100%; height:260px; background:#fff; border:1px solid #e2e8f0; border-radius:8px; }
+  .disclosure { font-size:13px; color:var(--gray); margin-top:14px; }
+  .legend { display:flex; gap:18px; font-size:13px; margin-top:8px; flex-wrap:wrap; }
+  .legend span { display:inline-flex; align-items:center; gap:6px; }
+  .swatch { width:12px; height:3px; display:inline-block; }
+</style>
+</head>
+<body>
+<header>
+  <div class="kicker">The Feasibility Stress Test — Case Study #14 · Capex Planning</div>
+  <h1>The Capex Line Isn't Where the Risk Is: South Pasopati Coal, Kalimantan</h1>
+  <p>A published real-options study of a USD 6.71 million coal project reports a base NPV of USD 7.10 million and a Monte Carlo standard deviation of 13.3. This page rebuilds the model and asks which input actually moves the answer.</p>
+</header>
+<div class="wrap">
+
+<div class="callout good"><strong>Note:</strong> the paper's open-access HTML text was read through an automated extraction pass, not a manual page-by-page read. Two tables (real-option inputs and option values) and all figures were images and were not readable. Check any number against the paper before reuse.</div>
+
+<h2>The confirmed findings</h2>
+<div class="stat-grid">
+  <div class="stat"><div class="num">USD 6.71 M</div><div class="label">Base-route capex (alternatives: 8.26 and 7.29)</div></div>
+  <div class="stat"><div class="num">USD 7.10 M</div><div class="label">Deterministic NPV, discount rate 11.42%, IRR 54%</div></div>
+  <div class="stat"><div class="num">7.19 / 13.3</div><div class="label">Paper's Monte Carlo mean and SD of NPV (USD M, 10,000 iterations)</div></div>
+  <div class="stat"><div class="num">USD 0.95 M</div><div class="label">Real-option value; ENPV 8.05; 38% chance of abandoning</div></div>
+</div>
+
+<p>Source: Trijayanto, T. &amp; Hakam, D. F. (2025). <em>Economic Viability and Flexibility of the South Pasopati Coal Project, Indonesia: A Real Options Approach Under Market Volatility and Carbon Pricing.</em> Journal of Risk and Financial Management, 18(5), 225. doi:10.3390/jrfm18050225.</p>
+
+<h2>What the paper reports vs what the rebuild gives</h2>
+<table>
+<tr><th>Route</th><th>Paper NPV</th><th>Paper MC mean / SD</th><th>Rebuild MC mean / SD</th><th>Rebuild P(NPV &lt; 0)</th></tr>
+<tr><td>Base (east, capex 6.71)</td><td>7.10</td><td>7.19 / 13.3</td><td>6.6 / 13.3</td><td>28.6%</td></tr>
+<tr><td>Alt 1 (west, capex 8.26)</td><td>4.47</td><td>4.49 / 0.94</td><td>3.8 / 13.5</td><td>36.4%</td></tr>
+<tr><td>Alt 2 (east + carbon, capex 7.29)</td><td>1.32</td><td>1.24 / 1.09</td><td>0.3 / 13.9</td><td>45.8%</td></tr>
+</table>
+
+<div class="callout bad"><strong>Honest caveat:</strong> the paper does not publish its cash-flow workbook, its Monte Carlo distributions or its coal-price regression. This page runs an <strong>illustrative reconstruction</strong>. Tax of 22%, straight-line depreciation, even four-year output and a 13% coal-price volatility are <strong>my assumptions</strong>, and I calibrated one OPEX ratio per route so the rebuild hits the paper's three NPVs, so that match is by construction. The rebuild does <strong>not</strong> reproduce the paper's Monte Carlo statistics or real-option values. Two things I cannot reconcile: the paper's tornado (a 20% price fall cuts NPV 72%, where the rebuild goes negative) and its west-route SD of 0.94, when identical price shocks give about 13.5 here. The paper reports no outcome after the decision.</div>
+
+<h2>Run your own simulation</h2>
+<p>Set the drivers, then run 5,000 trials. Coal price is sampled by Box-Muller normal and truncated at USD 20. OPEX ratio and capex are sampled by inverse-transform triangular. The inputs are independent, so there is no copula. The <strong>price-floor</strong> slider is <strong>my addition</strong>: an offtake floor with no premium and no counterparty cost, so it shows an upper bound on benefit. The paper has no floor.</p>
+
+<div class="sim-panel">
+  <div class="sliders">
+    <div class="slider-row"><label>Mean coal price (USD/t) <span class="val" id="v_pm">92.82</span></label><input type="range" id="pm" min="60" max="130" step="0.5" value="92.82"></div>
+    <div class="slider-row"><label>Coal price volatility (assumption) <span class="val" id="v_pv">13%</span></label><input type="range" id="pv" min="0" max="30" step="1" value="13"></div>
+    <div class="slider-row"><label>OPEX as share of base revenue <span class="val" id="v_or">0.866</span></label><input type="range" id="or" min="0.78" max="0.95" step="0.002" value="0.866"></div>
+    <div class="slider-row"><label>Capex, most likely (USD M) <span class="val" id="v_cx">6.71</span></label><input type="range" id="cx" min="4" max="16" step="0.1" value="6.71"></div>
+    <div class="slider-row"><label>Discount rate <span class="val" id="v_dr">11.42%</span></label><input type="range" id="dr" min="6" max="16" step="0.25" value="11.42"></div>
+    <div class="slider-row"><label>Price floor, % of USD 92.82 (my addition; 0 = none) <span class="val" id="v_fl">0%</span></label><input type="range" id="fl" min="0" max="110" step="1" value="0"></div>
+  </div>
+  <div class="btnrow"><button class="btn" id="runBtn">Run simulation (5,000 trials)</button></div>
+
+  <div class="sim-results hidden" id="results">
+    <div class="stat-grid">
+      <div class="stat"><div class="num" id="r_mean">—</div><div class="label">Mean NPV (USD M)</div></div>
+      <div class="stat"><div class="num" id="r_p10">—</div><div class="label">10th percentile NPV (USD M)</div></div>
+      <div class="stat"><div class="num" id="r_pneg">—</div><div class="label">P(NPV &lt; 0)</div></div>
+      <div class="stat"><div class="num" id="r_sd">—</div><div class="label">Standard deviation (USD M)</div></div>
+    </div>
+    <div class="stat-grid">
+      <div class="stat"><div class="num" id="r_base">—</div><div class="label">Deterministic NPV at your inputs (USD M)</div></div>
+      <div class="stat"><div class="num" id="r_be">—</div><div class="label">Break-even coal price (USD/t)</div></div>
+    </div>
+    <canvas id="hist" width="800" height="260"></canvas>
+    <div class="legend">
+      <span><span class="swatch" style="background:#c53030"></span>break-even</span>
+      <span><span class="swatch" style="background:#d69e2e"></span>paper's deterministic NPV (7.10)</span>
+      <span><span class="swatch" style="background:#2f855a"></span>simulated mean</span>
+    </div>
+    <div class="disclosure">Browser-side port of the notebook reconstruction. At default settings expect a mean NPV of roughly 6 to 7, SD near 13 and P(NPV &lt; 0) near 29%, versus the paper's 7.19, 13.3 and an implied 29% (normal approximation, my arithmetic). Not the authors' workbook.</div>
+  </div>
+</div>
+
+<h2>Explore</h2>
+<div class="btnrow">
+  <a class="btn secondary" href="notebook.html">View the full Python notebook</a>
+  <a class="btn secondary" href="https://github.com/ekalecturer/cs14-south-pasopati-capex-route">View source on GitHub</a>
+</div>
+
+<h2>The lesson</h2>
+<p>Capex is 5-7% of total cost in this project and OPEX is 83-89% of revenue, so the thin margin sits in the price. In the rebuild, NPV reaches zero at a coal price 7.5% below base, or at capex 127% above plan, and the rank correlation with NPV is 0.99 for price against minus 0.03 for capex. The paper reports no post-decision outcome, so what follows is illustrative: a board that sees this stops weighing a USD 1.5 million route difference and negotiates an offtake floor. A floor only helps once it sits above break-even (about 92.5% of base here), and a real floor has a cost this page does not model.</p>
+
+</div>
+<footer>Part of <strong>The Feasibility Stress Test</strong> — real Monte Carlo and financial-engineering case studies for capex decisions.</footer>
+
+<script>
+function randNormalStd(){ let u1=Math.random()||1e-9,u2=Math.random(); return Math.sqrt(-2*Math.log(u1))*Math.cos(2*Math.PI*u2); } // Box-Muller
+function triInv(u,a,m,b){ const fc=(m-a)/(b-a); if(b===a) return m; return u<fc ? a+Math.sqrt(u*(b-a)*(m-a)) : b-Math.sqrt((1-u)*(b-m)*(b-a)); } // inverse-transform
+const mean=a=>a.reduce((s,x)=>s+x,0)/a.length;
+const P0=92.82, VOL=158.06/92.82, YRS=4, TAX=0.22;
+
+// NPV in USD M. opexT = fixed OPEX per tonne; mirrors notebook npv()
+function npvOne(capex,opexT,price,w){
+  const qa=VOL/YRS, dep=capex/YRS; let pv=0;
+  for(let t=1;t<=YRS;t++){
+    const ebit=qa*(price-opexT)-dep;
+    pv+=(qa*(price-opexT)-Math.max(ebit,0)*TAX)/Math.pow(1+w,t);
+  }
+  return pv-capex;
+}
+function breakEvenPrice(capex,opexT,w){
+  let lo=1,hi=400; for(let i=0;i<60;i++){ const mid=(lo+hi)/2; if(npvOne(capex,opexT,mid,w)<0) lo=mid; else hi=mid; } return (lo+hi)/2;
+}
+
+const labels={pm:v=>Number(v).toFixed(2),pv:v=>v+"%",or:v=>Number(v).toFixed(3),cx:v=>Number(v).toFixed(2),dr:v=>Number(v).toFixed(2)+"%",fl:v=>v==0?"none":v+"%"};
+Object.keys(labels).forEach(id=>{ const el=document.getElementById(id), out=document.getElementById("v_"+id); el.addEventListener("input",()=>out.textContent=labels[id](el.value)); });
+
+function drawHistogram(canvas, values, markers){
+  const ctx=canvas.getContext("2d"), W=canvas.width, H=canvas.height; ctx.clearRect(0,0,W,H);
+  let min=Infinity,max=-Infinity; values.forEach(v=>{if(v<min)min=v;if(v>max)max=v;}); markers.forEach(m=>{if(m.x<min)min=m.x;if(m.x>max)max=m.x;});
+  const bins=40, counts=new Array(bins).fill(0), w=(max-min)/bins||1;
+  values.forEach(v=>{let i=Math.floor((v-min)/w); if(i>=bins)i=bins-1; if(i<0)i=0; counts[i]++;});
+  const mc=Math.max(...counts), pad=10, pw=W-2*pad, ph=H-2*pad, bw=pw/bins;
+  ctx.fillStyle="#2b6cb0"; counts.forEach((c,i)=>{const h=c/mc*ph; ctx.fillRect(pad+i*bw,H-pad-h,bw-1,h);});
+  markers.forEach(m=>{ const x=pad+(m.x-min)/(max-min)*pw; ctx.strokeStyle=m.color; ctx.lineWidth=2; ctx.setLineDash([5,4]); ctx.beginPath(); ctx.moveTo(x,pad); ctx.lineTo(x,H-pad); ctx.stroke(); ctx.setLineDash([]); });
+}
+
+function simulate(p,N){
+  const v=[];
+  for(let i=0;i<N;i++){
+    let price=Math.max(20,p.pm+p.pm*p.pv*randNormalStd());
+    if(p.fl>0) price=Math.max(price,p.fl*P0);
+    const ratio=triInv(Math.random(),p.or-0.03,p.or,p.or+0.03);
+    const capex=triInv(Math.random(),0.9*p.cx,p.cx,1.25*p.cx);
+    v.push(npvOne(capex,ratio*P0,price,p.dr));
+  }
+  return v;
+}
+
+document.getElementById("runBtn").addEventListener("click",()=>{
+  const g=id=>parseFloat(document.getElementById(id).value);
+  const p={pm:g("pm"),pv:g("pv")/100,or:g("or"),cx:g("cx"),dr:g("dr")/100,fl:g("fl")/100};
+  const N=5000, v=simulate(p,N);
+  const m=mean(v), sd=Math.sqrt(v.reduce((s,x)=>s+(x-m)*(x-m),0)/(N-1)), sorted=[...v].sort((a,b)=>a-b);
+  const det=npvOne(p.cx,p.or*P0,p.pm,p.dr), be=breakEvenPrice(p.cx,p.or*P0,p.dr);
+  document.getElementById("r_mean").textContent=m.toFixed(1);
+  document.getElementById("r_p10").textContent=sorted[Math.floor(0.10*N)].toFixed(1);
+  document.getElementById("r_pneg").textContent=(v.filter(x=>x<0).length/N*100).toFixed(1)+"%";
+  document.getElementById("r_sd").textContent=sd.toFixed(1);
+  document.getElementById("r_base").textContent=det.toFixed(1);
+  document.getElementById("r_be").textContent=be.toFixed(1);
+  document.getElementById("results").classList.remove("hidden");
+  drawHistogram(document.getElementById("hist"), v, [{x:0,color:"#c53030"},{x:7.10,color:"#d69e2e"},{x:m,color:"#2f855a"}]);
+});
+if(typeof module!=="undefined") module.exports={npvOne,simulate,breakEvenPrice};
+</script>
+</body>
+</html>

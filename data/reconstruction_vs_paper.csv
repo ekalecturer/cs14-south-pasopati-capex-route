@@ -1,0 +1,4 @@
+route,paper_npv,paper_mc_mean,paper_mc_sd,rebuild_mc_mean,rebuild_mc_sd,rebuild_p_npv_lt_0_pct
+Base (east route),7.10,7.19,13.30,6.63,13.30,28.6
+Alt 1 (west route),4.47,4.49,0.94,3.75,13.52,36.4
+Alt 2 (east + carbon),1.32,1.24,1.09,0.31,13.87,45.8

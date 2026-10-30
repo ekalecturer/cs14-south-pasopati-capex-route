@@ -1,0 +1,18 @@
+item,value,source
+Project,South Pasopati coal project (PT Borneo Indobara area; ~0.25% of its reserves),paper
+Reserves,1.7 Mt; capacity cap 500 kt/yr; four-year duration,paper
+Base coal price,USD 92.82/t,paper
+Discount rate (WACC),11.42%,paper
+Revenue,USD 158.06 M,paper
+OPEX share of revenue,83-89% across scenarios,paper
+Capex Base (east route),USD 6.71 M,paper
+Capex Alt 1 (west route),USD 8.26 M,paper
+Capex Alt 2 (east + carbon),USD 7.29 M,paper
+DCF NPV Base / Alt 1 / Alt 2,USD 7.10 M / 4.47 M / 1.32 M,paper
+IRR Base / Alt 1 / Alt 2,54% / 33.7% / 19.7%,paper
+MC Base (10000 iterations),mean 7.19; SD 13.3; P10 -9.79; P90 24.16 (USD M),paper
+MC Alt 1,mean 4.49; SD 0.94; worst 3.22; best 6.22 (USD M),paper
+MC Alt 2,mean 1.24; SD 1.09; worst -0.11; best 2.83 (USD M),paper
+Real option (Base),underlying PV 14.55; option value 0.95; ENPV 8.05; salvage 1.68 (USD M); abandon probability 38%,paper
+Tornado (Base),-20% coal price => NPV -72%; +20% OPEX => NPV -60%,paper
+Post-decision outcome,not reported,paper

@@ -1,0 +1,11 @@
+parameter,value,note
+Tax rate,22%,assumption (not in readable paper text)
+Depreciation,straight-line over 4 years,assumption
+Output,even over 4 years (1.703 Mt = revenue / base price),assumption
+Coal price,flat 92.82 USD/t in deterministic case,assumption (paper uses a regression projection with unpublished coefficients)
+OPEX/revenue Base,0.866,calibrated so rebuild NPV = 7.10
+OPEX/revenue Alt 1,0.880,calibrated so rebuild NPV = 4.47
+OPEX/revenue Alt 2,0.922,calibrated so rebuild NPV = 1.32 (outside paper's 83-89% range)
+MC coal price,Normal(92.82; sigma 13%) truncated at 20,assumption; sigma set so Base SD is near 13.3
+MC OPEX ratio,Triangular(r-0.03; r; r+0.03),assumption
+MC capex,Triangular(0.9x; 1.0x; 1.25x of plan),assumption

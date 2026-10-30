@@ -1,0 +1,97 @@
+{
+  "calibrated_opex_ratio": {
+    "Base (east route)": 0.8663,
+    "Alt 1 (west route)": 0.8804,
+    "Alt 2 (east + carbon)": 0.9222
+  },
+  "tornado_check": {
+    "base_npv": 7.1,
+    "price_minus20_npv": -14.76,
+    "opex_plus20_npv": -11.51,
+    "break_even_price": 85.87,
+    "break_even_price_drop_pct": 7.5,
+    "break_even_opex_ratio": 0.941,
+    "break_even_capex": 15.3,
+    "break_even_capex_pct_above_plan": 127
+  },
+  "base_mc": {
+    "mean": 6.625,
+    "sd": 13.298,
+    "p10": -10.779,
+    "p90": 23.078,
+    "p_loss": 0.285,
+    "price_sigma": 0.13
+  },
+  "paper_implied_p_loss_normal_approx": 0.294,
+  "route_comparison": [
+    {
+      "Route": "Base (east route)",
+      "Paper MC mean": 7.19,
+      "Paper MC SD": 13.3,
+      "Rebuild mean": 6.63,
+      "Rebuild SD": 13.3,
+      "Rebuild P(NPV<0) %": 28.6
+    },
+    {
+      "Route": "Alt 1 (west route)",
+      "Paper MC mean": 4.49,
+      "Paper MC SD": 0.94,
+      "Rebuild mean": 3.75,
+      "Rebuild SD": 13.52,
+      "Rebuild P(NPV<0) %": 36.4
+    },
+    {
+      "Route": "Alt 2 (east + carbon)",
+      "Paper MC mean": 1.24,
+      "Paper MC SD": 1.09,
+      "Rebuild mean": 0.31,
+      "Rebuild SD": 13.87,
+      "Rebuild P(NPV<0) %": 45.8
+    }
+  ],
+  "spearman": {
+    "Coal price": 0.995,
+    "OPEX ratio": -0.083,
+    "Capex": -0.032
+  },
+  "price_floor": [
+    {
+      "Case": "no floor",
+      "Mean NPV": 6.63,
+      "SD": 13.3,
+      "P(NPV<0) %": 28.6
+    },
+    {
+      "Case": "floor at 85% of base price",
+      "Mean NPV": 7.56,
+      "SD": 11.59,
+      "P(NPV<0) %": 28.6
+    },
+    {
+      "Case": "floor at 90% of base price",
+      "Mean NPV": 8.53,
+      "SD": 10.37,
+      "P(NPV<0) %": 28.4
+    },
+    {
+      "Case": "floor at 95% of base price",
+      "Mean NPV": 9.93,
+      "SD": 8.99,
+      "P(NPV<0) %": 1.6
+    },
+    {
+      "Case": "floor at 100% of base price",
+      "Mean NPV": 11.9,
+      "SD": 7.47,
+      "P(NPV<0) %": 0.0
+    }
+  ],
+  "meta": {
+    "seed": 20261130,
+    "trials": 10000,
+    "tax": 0.22,
+    "years": 4,
+    "volume_mt": 1.703,
+    "note": "Illustrative reconstruction; opex ratio calibrated to paper NPVs; price sigma 13% is an assumption."
+  }
+}
